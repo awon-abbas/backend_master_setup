@@ -80,7 +80,10 @@ const registerUser = asyncHandler(async (req, res) => {
   );
 
   if (!createdUser) {
-    throw new ApiError(500, "Something went wrong while registering the user!!!");
+    throw new ApiError(
+      500,
+      "Something went wrong while registering the user!!!"
+    );
   }
 
   return res
@@ -361,8 +364,16 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     },
   ]);
   if (!channel?.length) {
-    throw new ApiError
+    throw new ApiError(404, "channel does not exists!!!");
   }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200),
+      channel[0],
+      "Users channel fetched sucessfully"
+    );
 });
 
 export {
